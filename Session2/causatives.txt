@@ -1,0 +1,73 @@
+Film	Text	FRA	ENG	GER	SPA	DUT	SWE	ITA	POR	ROM	POL	SLO	CZE	RUS	BUL	EST	FIN	HUN	NOR
+Amelie	I had my nasal cavities fixed. 	faire	have	lassen	NA	NA	NA	fare	NA	NA	NA	dati	dat	NA	NA	NA	NA	NA	NA
+Amelie	Take two regulars, _mix_ them together and let them stew .	faire	NA	lassen	hacer	NA	NA	fare	NA	face	NA	NA	NA	NA	NA	panema	NA	NA	la
+Amelie	Take two regulars, mix them together and _let_ them stew .	laisser	let	lassen	dejar	laten	lata	fare	NA	NA	NA	NA	nechat	NA	ostavjam	laskma	antaa	hagy	la
+Amelie	The thrill of this rare contact makes her heart beat like a drum.	NA	make	lassen	NA	doen	fa	NA	NA	NA	NA	NA	NA	NA	karam	NA	saada	NA	fa
+Amelie	When a girl has her photo taken...	faire	have	lassen	NA	laten	NA	NA	NA	NA	NA	NA	NA	NA	NA	laskma	NA	NA	fa
+Amelie	If you let this chance go by...	laisser	let	lassen	dejar	laten	lata	lasciare	deixar	NA	NA	NA	nechat	NA	NA	laskma	NA	hagy	la
+Amelie	As she went, she felt a stab of regret for letting her father die.	laisser	let	lassen	dejar	laten	lata	lasciare	deixar	lasa	pozwolic	pustiti	nechat	davat	ostavjam	laskma	antaa	hagy	la
+Amelie	At barely 23, Amelie Poulain let her young, tired body merge...	laisser	let	NA	NA	laten	lata	NA	deixar	NA	NA	NA	NA	NA	ostavjam	laskma	antaa	hagy	la
+Amelie	Think about it.	laisser	NA	lassen	dejar	NA	NA	lasciare	NA	lasa	NA	pustiti	nechat	NA	NA	NA	NA	NA	la
+Amelie	At that moment, on a restaurant terrace nearby the wind magically made two glasses dance unseen on a tablecloth .	faire	make	lassen	hacer	doen	NA	fare	fazer	face	NA	NA	NA	NA	karam	panema	NA	NA	NA
+Avatar	Let's go special case, do not make me wait for you.	faire	make	NA	NA	laten	NA	fare	NA	face	NA	pustiti	NA	NA	karam	panema	NA	NA	la
+Avatar 	Let me try to talk them out.	laisser	let	lassen	dejar	laten	lata	lasciare	deixar	lasa	pozwolic	NA	nechat	NA	NA	NA	antaa	NA	la
+Avatar 	They got steak? Bullshit, let me see that.	laisser	let	lassen	dejar	laten	NA	fare	deixar	lasa	NA	dati	NA	NA	NA	NA	NA	NA	la
+Avatar	Who gets them to move?	faire	get	bringen	hacer	laten	fa	NA	NA	face	NA	NA	prinutit	NA	NA	sundima	NA	NA	fa
+Avatar 	Just keep your mouth shut and let Norm do the talking.	laisser	let	NA	NA	laten	lata	lasciare	NA	lasa	NA	pustiti	NA	NA	NA	NA	antaa	NA	la
+Avatar 	Why not let them just kill my ass?	laisser	let	NA	NA	laten	lata	NA	deixar	lasa	pozwolic	pustiti	nechatby	pozvoljat	ostavjam	laskma	antaa	NA	la
+Avatar 	He's not gonna let you near that place.	laisser	NA	NA	NA	laten	lata	fare	NA	lasa	pozwolic	NA	NA	NA	NA	NA	NA	NA	la
+Avatar 	I'm not about to let Selfridge and Quaritch micromanage this thing.	laisser	let	NA	NA	NA	lata	permettere	deixar	NA	pozwolic	NA	nechat	pozwoljat	ostavjam	laskma	antaa	NA	la
+Avatar	So just find me a carrot that will get them to move.	faire	get	NA	hacer	NA	fa	NA	fazer	face	NA	NA	NA	NA	NA	panema	NA	NA	fa
+Avatar	You get them to evacuate.	faire	get	NA	NA	NA	NA	costringere	NA	convinge	NA	NA	NA	NA	NA	sundima	NA	NA	fa
+Avatar	Don't make me force-feed a cripple.	forcer	make	NA	obligar	NA	tvinga	costringere	forcar	face	NA	siliti	NA	zastavljat	ostavjam	sundima	panna	NA	fa
+DasLebenDerAnderen	Just say so, and I'll let you go. 	laisser	let	NA	dejar	laten	NA	fare	deixar	lasa	NA	NA	NA	NA	NA	laskma	NA	NA	la
+DasLebenDerAnderen	I'd have him monitored. 	faire	have	lassen	NA	laten	NA	NA	NA	NA	NA	dati	dat	NA	NA	laskma	NA	NA	NA
+DasLebenDerAnderen	Please, let me sleep!	laisser	let	lassen	dejar	laten	lata	lasciare	deixar	lasa	pozwolic	pustiti	nechat	davat	ostavjam	laskma	antaa	hagy	la
+DasLebenDerAnderen	Would you let him go, if you were in their position?	autoriser	let	lassen	dejar	NA	NA	lasciare	deixar	lasa	NA	NA	nechat	razreshat	pozvoljavam	laskma	antaa	NA	la
+DasLebenDerAnderen	Let me guess what those two are doing...	laisser	let	lassen	NA	laten	NA	NA	deixar	lasa	NA	NA	nechat	NA	NA	NA	NA	NA	la
+DasLebenDerAnderen	Let her go. She's not a suspect.	NA	let	NA	dejar	laten	NA	lasciare	deixar	NA	NA	NA	NA	NA	NA	NA	antaa	NA	la
+ElLaberintoDelFauno	We can't allow anyone to send food to the guerillas in the mountains.	NA	allow	erlauben	NA	NA	NA	NA	NA	permite	pozwolic	NA	NA	pozvoljat	pozvoljavam	NA	NA	NA	tillate
+ElLaberintoDelFauno	...and won't let the tree thrive.	NA	let	lassen	dejar	NA	NA	NA	deixar	lasa	pozwolic	dopustiti	nechat	pozvoljat	pozvoljavam	laskma	antaa	hagy	NA
+ElLaberintoDelFauno	This is all because of that junk you let her read.	NA	let	lassen	permitir	laten	lata	lasciare	deixar	lasa	pozwolic	dovoliti	dovolit	pozvoljat	pozvoljavam	lubama	antaa	enged	la
+ElLaberintoDelFauno	Look: He let her go...	laisser	let	lassen	dejar	laten	lata	lasciare	NA	lasa	NA	NA	nechat	NA	NA	laskma	paastaa	hagy	la
+ElLaberintoDelFauno	We need to force them down, _make_ them come to us. 	faire	make	bringen	NA	NA	tvinga	NA	fazer	face	zmuszac	siliti	prinutit	NA	NA	NA	NA	NA	NA
+ElLaberintoDelFauno	Let me introduce you to my wife, Carmen.	permettre	let	NA	permitir	NA	NA	permettere	NA	NA	NA	NA	dovolit	pozvoljat	pozvoljavam	lubama	NA	NA	la
+ElLaberintoDelFauno	Let the fairies guide you.	laisser	let	lassen	dejar	laten	lata	lasciare	NA	lasa	pozwolic	NA	nechat	NA	ostavjam	NA	antaa	NA	la
+ElLaberintoDelFauno	Your real father had us open portals all over the world to allow your return.	faire	have	lassen	hacer	laten	fa	fare	fazer	NA	NA	NA	NA	NA	nakarvam	NA	NA	NA	NA
+ElLaberintoDelFauno	Let me see.	faire	let	lassen	dejar	laten	lata	fare	deixar	lasa	pozwolic	NA	NA	NA	davam	NA	NA	NA	la
+TheTourist	Pick up someone my height and build and make them believe it is me.	faire	make	lassen	hacer	laten	NA	fare	NA	face	NA	NA	NA	zastavljat	NA	panema	NA	NA	fa
+TheTourist	What made Pierce think he could take on a guy like that?	NA	make	NA	hacer	NA	fa	NA	fazer	NA	NA	NA	primet	NA	NA	NA	NA	NA	fa
+TheTourist	I didn't think he would let Shaw get to you.	laisser	let	NA	NA	NA	NA	NA	deixar	lasa	NA	NA	dovolit	NA	dopuskam	laskma	antaa	NA	la
+TheTourist	I honestly didn't think he would let it go this far.	laisser	let	lassen	NA	laten	NA	NA	NA	lasa	NA	NA	nechat	NA	pozvoljavam	NA	antaa	NA	la
+TheTourist	Let her go!	laisser	let	lassen	dejar	laten	NA	lasciare	deixar	lasa	NA	NA	NA	NA	NA	laskma	NA	NA	la
+TheTourist	You let her leave and I'll open the safe. - Stop right there . 	laisser	let	NA	dejar	NA	NA	lasciare	deixar	lasa	NA	pustiti	NA	davat	NA	lubama	NA	NA	la
+TheTourist	Please, Elise, let me handle this.	laisser	let	lassen	NA	laten	lata	NA	deixar	lasa	pozwolic	NA	nechat	NA	NA	NA	antaa	NA	la
+TheTourist	I'll say it again, let her go. I'll open the safe.	laisser	let	NA	dejar	laten	NA	lasciare	NA	lasa	NA	NA	NA	NA	puskam	laskma	NA	NA	la
+TheTourist	But that you'd have to let me go because you have nothing on me.	laisser	let	NA	dejar	laten	NA	lasciare	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	la
+TheTourist	He had every man killed his wife had slept with before she met him.	faire	have	lassen	hacer	laten	NA	fare	NA	NA	NA	NA	NA	NA	NA	laskma	NA	NA	fa
+TheTourist	And I won't make you watch something that you would never forget.	obliger	make	NA	NA	NA	NA	NA	fazer	face	NA	NA	NA	NA	nakarvam	NA	panna	NA	tvinge
+TheTourist	Allow me to ask.	NA	allow	NA	NA	NA	lata	NA	permitir	permite	NA	NA	NA	pozvoljat	pozvoljavam	NA	sallia	NA	tillate
+Twilight	I told them not to let me play. 	laisser	let	lassen	dejar	NA	lata	NA	deixar	lasa	NA	siliti	nechat	NA	karam	laskma	antaa	hagy	la
+Twilight	Let the girl eat her garden burger, Waylon? 	laisser	let	lassen	dejar	laten	lata	lasciare	deixar	lasa	dawac	pustiti	NA	NA	ostavjam	NA	antaa	NA	la
+Twilight	I'm not gonna let her die. 	laisser	let	lassen	dejar	laten	lata	lasciare	deixar	lasa	pozwolic	NA	nechat	davat	ostavjam	laskma	antaa	hagy	la
+Twilight	Why didn't you just let the van crush me and save yourself all this regret? 	laisser	let	lassen	NA	laten	lata	NA	deixar	lasa	NA	NA	nechat	NA	ostavjam	laskma	antaa	NA	la
+Twilight	Just let me get you out of here first, alright? It 's my dad ! 	laisser	let	lassen	dejar	laten	lata	NA	deixar	lasa	NA	NA	nechat	NA	NA	laskma	NA	NA	la
+Twilight	Why don't you let me drive? 	laisser	let	lassen	dejar	laten	lata	NA	deixar	lasa	NA	NA	nechat	NA	davam	laskma	antaa	NA	la
+Twilight	It's the only way he 'd let you go. 	NA	let	lassen	dejar	laten	NA	NA	deixar	lasa	NA	dovoliti	nechat	NA	puskam	laskma	NA	NA	NA
+Twilight	If you'd just let the venom spread ... I could be like you by now . 	laisser	let	lassen	NA	laten	lata	lasciare	NA	lasa	NA	NA	nechat	NA	ostavjam	laskma	antaa	NA	la
+Twilight	Are you gonna let the change happen ? 	laisser	let	NA	NA	laten	NA	NA	deixar	lasa	NA	NA	NA	NA	ostavjam	NA	NA	NA	la
+Twilight	Let me know. 	NA	let	NA	hacer	laten	NA	fare	NA	NA	NA	NA	dat	NA	NA	andma	NA	NA	NA
+Twilight	Let me help you.	laisser	let	NA	dejar	laten	lata	NA	deixar	lasa	NA	NA	NA	NA	NA	NA	antaa	NA	la
+Twilight	You're not gonna let this go, are you?	laisser	let	NA	dejar	NA	NA	NA	NA	NA	NA	NA	nechat	NA	NA	laskma	NA	NA	la
+Twilight	I can't believe you're making me do this.	faire	make	NA	hacer	laten	NA	NA	obrigar	pune	NA	NA	prinutit	NA	NA	sundima	NA	NA	fa
+LaVitaEBella	What do you think, they force people to stay?	NA	force	NA	forzar	dwingen	tvinga	NA	obrigar	NA	zmuszac	NA	NA	NA	NA	sundima	NA	kenyszerit	NA
+LaVitaEBella	Wait! I want to get on that train.	faire	NA	NA	dejar	NA	lata	fare	fazer	NA	NA	NA	NA	NA	puskam	NA	NA	NA	NA
+LaVitaEBella	They stopped the train to let momma get on. 	faire	let	NA	dejar	NA	lata	fare	deixar	lasa	NA	NA	NA	NA	NA	NA	NA	NA	NA
+LaVitaEBella	I had them put it here, too, to be safe. 	faire	have	lassen	NA	NA	NA	fare	NA	NA	NA	dati	nechat	NA	nakarvam	laskma	NA	NA	NA
+LaVitaEBella	He had the ability to make me do anything, you know?	faire	make	NA	hacer	NA	fa	fare	NA	face	NA	NA	NA	NA	nakarvam	panema	saada	NA	fa
+LaVitaEBella	Well, are we going to let heaven decide that too?	NA	let	lassen	NA	laten	lata	fare	deixar	lasa	NA	pustiti	nechat	NA	NA	laskma	antaa	NA	la
+LaVitaEBella	The key that always makes you say yes has to come from heaven, right?	faire	make	NA	hacer	laten	fa	fare	fazer	face	NA	NA	prinutit	zastavljat	NA	panema	saada	NA	fa
+LaVitaEBella	There's a way to unlock this jewel box and convince you to say yes to me?	faire	NA	NA	hacer	laten	NA	fare	NA	face	NA	NA	NA	zastavljat	NA	panema	saada	NA	NA
+LaVitaEBella	You know, it makes me... makes me laugh.	NA	make	NA	hacer	NA	NA	fare	NA	face	NA	NA	NA	NA	NA	ajama	saada	NA	NA
+LaVitaEBella	I'll get them to come over to me.	faire	get	NA	hacer	laten	NA	fare	fazer	face	NA	NA	nechat	zastavljat	nakarvam	panema	saada	NA	NA
+LaVitaEBella	Someone will have to torture me to say it. 	faire	NA	NA	hacer	NA	NA	fare	obrigar	face	NA	NA	NA	NA	NA	panema	NA	NA	NA

@@ -1,0 +1,268 @@
+---
+title: "Session1"
+author: "Natalia Levshina"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Packages
+
+To reproduce the R code and fit your phylogenetic models, you will need some packages installed and loaded to your session: brms, ape and glottoTrees.
+
+```{r}
+library(brms) #for installation, see the instructions sent previously
+library(ape) #install it first if needed via Packages > Install
+
+remotes::install_github("erichround/glottoTrees",
+                        dependencies = TRUE)
+library(glottoTrees)
+```
+
+## Loading the dataset
+
+Load the data. Note that it should be saved in the working directory. To check your working directory, type this:
+```{r}
+getwd()
+```
+
+After you have copied the dataset, you can load it in R:
+
+```{r}
+data <- read.table("data_session1.txt", header = T, sep = "\t")
+#or you can choose it interactively:
+#data <- read.table(file = file.choose(), header = T, sep = "\t")
+
+```
+
+Let us explore the dataset.
+
+```{r}
+str(data)
+head(data)
+```
+
+## Research question
+
+Is there a correlation between the proportion of overlapping S and O forms in a language, and Shannon's entropy of SO order?
+
+```{r}
+plot(data$SO_Overlap, data$Entropy)
+```
+
+## A naïve model
+
+We first fit a Bayesian model without any genealogical or geographic information.
+Before doing so, we define weakly informative priors.
+
+```{r}
+my_prior_fixed <- set_prior("normal(0, 5)", class = "b")
+```
+
+Our first model has 4 MCMC chains (the default) and 4000 iterations per chain. It is usually more efficient to use parallel computing across 4 or more cores (cores = 4).
+
+```{r message=FALSE, results='hide'}
+brm_naive <- brm(Entropy ~ SO_Overlap, data = data, cores = 4, chains = 4, iter = 4000, prior = my_prior_fixed)
+```
+
+The coefficients and other useful information are accessed using summary():
+
+```{r}
+summary(brm_naive)
+```
+
+We can also visualize the effect:
+
+```{r message=FALSE}
+conditional_effects(brm_naive)
+```
+
+How good is the model? Let us compute the R2 statistic and perform posterior predictive checks.
+
+```{r}
+bayes_R2(brm_naive)
+pp_check(brm_naive)
+```
+
+What is the problem?
+
+## Beta regression
+
+Entropy values for a binomial outcome (SO or OS) cannot be greater than 1 and less than 0.
+We need to switch to beta regression. Before we can fit a beta model, we need to transform the Entropy variable because beta regression cannot deal with values that are strictly equal to 0 or 1. 
+```{r}
+summary(data$Entropy)
+data$Entropy1 <- data$Entropy
+data$Entropy1[data$Entropy == 0] <- 0.001
+summary(data$Entropy1)
+```
+
+Let us refit the model. We will use the same priors as above, but note that in many cases you will need to adjust the priors.
+
+```{r message=FALSE, results='hide'}
+brm_naive_beta <- brm(Entropy1 ~ SO_Overlap, data = data, 
+                      family = Beta,
+                      cores = 4, iter = 4000, 
+                      prior = my_prior_fixed)
+```
+
+
+What has changed?
+
+```{r}
+summary(brm_naive_beta)
+pp_check(brm_naive_beta)
+bayes_R2(brm_naive_beta)
+conditional_effects(brm_naive_beta)
+```
+
+## Mixed-effect modelling
+
+Let us try take into account the phylogenetic information by adding random intercepts for every Genus. We also need to provide priors for the random effects.
+
+```{r message=FALSE, results='hide'}
+my_prior_mixed <- c(set_prior("normal(0, 5)", class = "b"), 
+                    set_prior("normal(0, 5)", class = "sd"))
+
+brm_genus <- brm(Entropy1 ~ SO_Overlap + (1|genus), data = data, 
+                      family = Beta,
+                      cores = 4, iter = 4000, 
+                      prior = my_prior_mixed)
+```
+
+The results:
+
+```{r}
+summary(brm_genus)
+bayes_R2(brm_genus)
+conditional_effects(brm_naive_beta)
+```
+
+
+## Which model is better?
+
+```{r}
+brm_naive_beta <- add_criterion(brm_naive_beta, "loo")
+brm_genus <- add_criterion(brm_genus, "loo")
+```
+
+To avoid the warning message, we refit the model brm_genus with save_pars = save_pars(all = TRUE) and then improve the LOO estimation. Note that this can take a while.
+
+```{r}
+brm_genus <- brm(Entropy1 ~ SO_Overlap + (1|genus), 
+                      family = Beta,
+                      data = data, cores = 4, iter = 4000, 
+                      prior = my_prior_mixed, 
+                      save_pars = save_pars(all = TRUE))
+brm_genus <- add_criterion(brm_genus, "loo", moment_match = TRUE)
+```
+
+Now we can compare the models:
+
+```{r}
+loo_compare(brm_naive_beta, brm_genus, criterion = "loo")
+```
+
+The model at the top is better. The ELPD difference should be at least twice as large as its SE. Otherwise, the difference is not considered significant, and we can select the more parsimonious model if we want.
+
+## Our first phylogenetic model
+
+Our first phylogenetic model will include a variance-covariance matrix with covariances (correlations) between all languages in the sample. To create the matrix, we will use some functions from the package glottoTrees:
+
+```{r}
+my_supertree <- assemble_supertree(macro_groups = NULL)
+my_supertree <- abridge_labels(my_supertree)
+my_tree <- keep_as_tip(my_supertree, label = data$glottocode)
+plot_glotto(my_tree)
+```
+
+
+```{r}
+my_cor <- ape::vcv.phylo(my_tree, corr = TRUE)
+print(my_cor[1:10, 1:10])
+```
+
+See more information about these and other functions in this useful tutorial: 
+https://ladal.edu.au/tutorials/phylogenetic_methods/phylogenetic_methods.html.
+Now we are ready to fit our first phylogenetic model:
+
+```{r message=FALSE, results='hide'}
+brm_phylo <- brm(Entropy1 ~ SO_Overlap + 
+                   (1 |gr(glottocode, cov = my_cor)),
+                 family = Beta, data = data,
+                 data2 =list(my_cor = my_cor), cores = 4, prior = my_prior_mixed,
+                 iter = 4000, control = list(adapt_delta = 0.99))
+```
+
+```{r}
+summary(brm_phylo)
+```
+
+There are some numeric problems. It seems that there is not enough data for this complex structure. Let us simplify the random effect structure by pruning the phylogenetic tree and using only information about the genera and above.
+
+```{r}
+my_tree1 <- keep_as_tip(my_supertree, label = data$glottocode_genus)
+plot_glotto(my_tree1)
+my_cor1 <- ape::vcv.phylo(my_tree1, corr = TRUE)
+```
+
+
+```{r message=FALSE, results='hide'}
+brm_phylo1 <- brm(Entropy1 ~ SO_Overlap + 
+                   (1 |gr(glottocode_genus, cov = my_cor1)),
+                 family = Beta, data = data,
+                 data2 =list(my_cor1 = my_cor1), cores = 4, prior = my_prior_mixed,
+                 iter = 4000, control = list(adapt_delta = 0.99), 
+                 save_pars = save_pars(all = TRUE))
+```
+
+```{r}
+summary(brm_phylo1)
+```
+
+Is this model better than the other two?
+
+```{r}
+brm_phylo1 <- add_criterion(brm_phylo1, "loo", moment_match = TRUE) #this can take a while
+loo_compare(brm_naive_beta, brm_genus, brm_phylo1, criterion = "loo")
+```
+
+## Adding geographic information
+
+How to test geographic dependencies between the languages? We do not have enough data to test macroareas:
+
+```{r}
+table(data$macroarea)
+```
+
+In this situation, we can start directly with Gaussian Processes:
+
+```{r}
+my_prior_gp <- c(set_prior("normal(0, 5)", class = "b"),
+              set_prior("normal(0, 5)", class = "sdgp"))
+```
+
+```{r message=FALSE, results='hide'}
+brm_gp <- brm(Entropy1 ~ SO_Overlap + 
+                gp(longitude, latitude),
+              family = Beta, data = data, 
+              cores = 4,
+              iter = 4000, prior = my_prior_gp, 
+              control = list(adapt_delta = 0.999), save_pars = save_pars(all = TRUE))
+```
+
+```{r}
+summary(brm_gp)
+```
+
+Is this model better or worse than the previous ones?
+
+```{r}
+brm_gp <- add_criterion(brm_gp, "loo", moment_match = TRUE) #this can take long
+loo_compare(brm_naive_beta, brm_genus, brm_phylo1, brm_gp, criterion = "loo") 
+```
+
+Which model is the winner? What can we conclude from the results?

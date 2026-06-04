@@ -1,0 +1,171 @@
+---
+title: "Session3"
+author: "Natalia Levshina"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Loading add-on packages
+
+```{r message = FALSE}
+#if needed, install the packages first
+library(party)
+library(Hmisc)
+```
+
+
+## Loading the dataset
+
+```{r}
+A2A_data <- read.table("A2A_data.txt", header = T, sep  = "\t", quote = "", comment = "", stringsAsFactors = T)
+str(A2A_data)
+```
+
+First, we extracting the features for A and P separately from the initial dataset, and then merge them into one "long" dataset.
+
+```{r}
+data_A <- A2A_data[, c(1, 2, 4:9, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30:38, 41)]
+data_P <- A2A_data[, c(1, 2, 4:9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29:38, 41)]
+colnames(data_A) <- colnames(data_P) <- c("Language", "Filename", "Speaker_ID", "Text", "Gloss_Sentence", "Translation", "Word_Order", "Position_LexVerb",  "Wordform", "Gloss", "Case", "Person", "Semantics", "Structure", "Length_Syl", "Length_Words", "Discourse_Status", "Situation_Status", "Verb_Lemma", "Semantics_Verb", "Tense_Aspect", "Utterance_Type", "Clause", "Formal_Ambiguity", "Ditransitive", "Idiomatic", "FirstArg_Role", "Exclude")
+
+data_A$Role <- as.factor(rep("A", nrow(data_A)))
+data_P$Role <- as.factor(rep("P", nrow(data_P)))
+
+data_long <- rbind(data_A, data_P)
+
+data_long$Position <- rep("First", nrow(data_long))
+data_long$Position[data_long$Role == "A"&data_long$FirstArg_Role == "P"] <- "Second"
+data_long$Position[data_long$Role == "P"&data_long$FirstArg_Role == "A"] <- "Second"
+data_long$Position <- as.factor(data_long$Position)
+
+summary(data_long$Position)
+```
+
+We also need to get rid of noisy small categories, to facilitate machine learning.
+
+```{r}
+data_long$Situation_Status <- as.character(data_long$Situation_Status)
+data_long$Situation_Status[data_long$Situation_Status %in% c("Present", "Absent", "Unclear")] <- NA
+data_long$Situation_Status <- as.factor(data_long$Situation_Status)
+summary(data_long$Situation_Status)
+
+data_long$Discourse_Status <- as.character(data_long$Discourse_Status)
+data_long$Discourse_Status[data_long$Discourse_Status %in% c("New", "Unclear")] <- NA
+data_long$Discourse_Status <- as.factor(data_long$Discourse_Status)
+summary(data_long$Discourse_Status)
+```
+
+## Exploring conditional inference trees
+
+We create a dataset only with German contexts.
+
+```{r}
+ger_all <- data_long[data_long$Language == "German", 
+c("Position", "Role", "Case", "Position_LexVerb", "Idiomatic", "Ditransitive", "Formal_Ambiguity", "Clause", "Tense_Aspect", "Utterance_Type", "Semantics_Verb", "Situation_Status", "Discourse_Status", "Length_Syl", "Length_Words","Structure", "Semantics", "Person", "Filename")]
+
+ger_all <- ger_all[complete.cases(ger_all),]#611 obs.
+
+ger_all$Structure <- factor(ger_all$Structure)
+ger_all$Tense_Aspect <- factor(ger_all$Tense_Aspect)
+ger_all$Filename <- factor(ger_all$Filename)
+```
+
+What does a conditional inference tree look like? We will use the default settings.
+
+```{r}
+mytree_ger <- ctree(Position ~ ., data = ger_all)
+plot(mytree_ger)
+```
+
+Repeat the procedure for the other two languages.
+
+```{r}
+rus_all <- data_long[data_long$Language == "Russian", 
+c("Position", "Role", "Case", "Position_LexVerb", "Idiomatic", "Ditransitive", "Formal_Ambiguity", "Clause", "Tense_Aspect", "Utterance_Type", "Semantics_Verb", "Situation_Status", "Discourse_Status", "Length_Syl", "Length_Words", "Structure", "Semantics", "Person", "Filename")]
+
+rus_all <- rus_all[complete.cases(rus_all),]
+
+rus_all$Structure <- factor(rus_all$Structure)
+rus_all$Tense_Aspect <- factor(rus_all$Tense_Aspect)
+rus_all$Filename <- factor(rus_all$Filename)
+
+mytree_rus <- ctree(Position ~ ., data = rus_all)
+plot(mytree_rus)
+
+
+tag_all <- data_long[data_long$Language == "Tagalog", 
+c("Position", "Role", "Case", "Position_LexVerb", "Idiomatic", "Ditransitive", "Formal_Ambiguity", "Clause", "Tense_Aspect", "Utterance_Type", "Semantics_Verb", "Situation_Status", "Discourse_Status", "Length_Syl", "Length_Words", "Structure", "Semantics", "Person", "Filename")]
+
+tag_all <- tag_all[complete.cases(tag_all),]
+
+tag_all$Structure <- factor(tag_all$Structure)
+tag_all$Tense_Aspect <- factor(tag_all$Tense_Aspect)
+tag_all$Filename <- factor(tag_all$Filename)
+
+mytree_tag <- ctree(Position ~ ., data = tag_all)
+plot(mytree_tag)
+```
+
+## Growing random forests
+
+Next, we can grow a 1000 trees forest using mtry = 5. 
+
+```{r}
+myforest_ger_all_mtry5 <- cforest(Position ~ ., data = ger_all, controls = cforest_unbiased(ntree = 1000, mtry = 5))
+importance_ger_all_mtry5 <- varimp(myforest_ger_all_mtry5, conditional = T) #this can take a while
+
+cutoff <- abs(min(importance_ger_all_mtry5))
+dotchart(sort(importance_ger_all_mtry5), main = "German: cforest, Variable Importance, mtry = 5")
+abline(v = cutoff, lty = 2, col = "blue")
+```
+
+Exercise: try other mtry values (e.g., 10 and 15). Compare the results.
+
+A random forests for Russian:
+
+```{r}
+myforest_rus_all_mtry5 <- cforest(Position ~ ., data = rus_all, controls = cforest_unbiased(ntree = 1000, mtry = 5))
+importance_rus_all_mtry5 <- varimp(myforest_rus_all_mtry5, conditional = T)
+
+cutoff <- abs(min(importance_rus_all_mtry5))
+dotchart(sort(importance_rus_all_mtry5), main = "Russian: cforest, Variable Importance, mtry = 5")
+abline(v = cutoff, lty = 2, col = "blue")
+```
+
+A random forest for Tagalog:
+
+```{r}
+myforest_tag_all_mtry5 <- cforest(Position ~ ., data = tag_all, controls = cforest_unbiased(ntree = 1000, mtry = 5))
+importance_tag_all_mtry5 <- varimp(myforest_tag_all_mtry5, conditional = T)
+
+cutoff <- abs(min(importance_tag_all_mtry5))
+dotchart(sort(importance_tag_all_mtry5), main = "Tagalog cforest, Variable Importance, mtry = 5")
+abline(v = cutoff, lty = 2, col = "blue")
+```
+
+Try other mrty values and compare the results.
+What can you conclude?
+
+## Evaluating the models' performance
+
+Computing Out-of-Bag (OOB) C-score for German:
+
+```{r}
+pred_oob_ger <- predict(myforest_ger_all_mtry5, type = "prob", OOB = TRUE)
+prob_oob_ger <- unlist(pred_oob_ger)[c(FALSE, TRUE)]
+somers2(prob_oob_ger, as.numeric(ger_all$Position) - 1)
+```
+
+Compute the OOB accuracy score:
+
+```{r}
+pred_oob_cat_ger <- predict(myforest_ger_all_mtry5, type = "response", OOB = TRUE)
+table(pred_oob_cat_ger, ger_all$Position)
+```
+
+Compute the accuracy score by dividing correct predictions by the total number of observations.
+Exercise: try the same for Russian and Tagalog.
